@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-4 text-center">
-                <img width="200px" height="200px" class="rounded-circle" src="https://i0.wp.com/wp.laravel-news.com/wp-content/uploads/2019/02/laravel-5.8.png?resize=2200%2C1125" alt="">
+                <img width="200px" height="200px" style="max-width: 200px" class="rounded-circle w-100" src="{{ $user->profile->getImage() }}" alt="">
             </div>
             <div class="col-8">
                 <div class="d-flex align-items-baseline">

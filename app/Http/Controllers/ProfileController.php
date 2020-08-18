@@ -24,10 +24,20 @@ class ProfileController extends Controller
         $data = request()->validate([
             'title' => 'required',
             'description' => 'required',
-            'url' => 'required|url'
+            'url' => 'required|url',
+            'image' => 'sometimes|image|max:3000'
         ]);
 
-        auth()->user()->profile->update($data);
+        if(request('image')) {
+            $imagePath = request('image')->store('avatars', 'public');
+
+            auth()->user()->profile->update(array_merge(
+                $data,
+                ['image' => $imagePath]
+            ));
+        } else {
+            auth()->user()->profile->update($data);
+        }
 
         return redirect()->route('profiles.show', ['user' => $user]);
     }
