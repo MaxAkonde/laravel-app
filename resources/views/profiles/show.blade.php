@@ -16,6 +16,9 @@
                     <div class="mr-3"> <strong>951</strong> abonnés</div>
                     <div class="mr-3"> <strong>3</strong> abonnements</div>
                 </div>
+                @can('update', $user->profile)
+                    <a href="{{ route('profiles.edit', ['username' => $user->username]) }}" class="btn btn-outline-secondary mt-3">Modifier mes informations</a>
+                @endcan
                 <div class="mt-3">
                     <div class="font-weight-bold">{{ $user->profile->title }}</div>
                     <div>{{ $user->profile->description }}</div>
