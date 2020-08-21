@@ -8,15 +8,18 @@ class Profile extends Model
 {
     protected $guarded = [];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('App\User');
     }
 
-    public function followers() {
+    public function followers()
+    {
         return $this->belongsToMany('App\User');
     }
 
-    public function getImage() {
+    public function getImage()
+    {
         $imagePath = $this->image ?? 'avatars/default.svg';
 
         return "/storage/" . $imagePath;

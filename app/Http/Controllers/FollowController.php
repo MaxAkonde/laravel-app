@@ -11,7 +11,8 @@ class FollowController extends Controller
         $this->middleware('auth');
     }
 
-    public function store($profile) {
+    public function store($profile)
+    {
         auth()->user()->following()->toggle($profile);
     }
 }

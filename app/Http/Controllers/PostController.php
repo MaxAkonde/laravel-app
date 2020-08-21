@@ -13,18 +13,21 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function index()
+    {
         $users = auth()->user()->following->pluck('user_id');
         $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('posts.create');
     }
 
-    public function store() {
+    public function store()
+    {
         $data = request()->validate([
             'caption' => ['required', 'string'],
             'image' => ['required', 'image']
@@ -43,7 +46,8 @@ class PostController extends Controller
         return redirect()->route('profiles.show', ['user' => auth()->user()]);
     }
 
-    public function show(Post $post) {
+    public function show(Post $post)
+    {
         return view('posts.show', compact('post'));
     }
 }

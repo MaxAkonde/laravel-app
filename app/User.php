@@ -48,19 +48,23 @@ class User extends Authenticatable
         });
     }
 
-    public function getRouteKeyName() {
+    public function getRouteKeyName()
+    {
         return 'username';
     }
 
-    public function profile() {
+    public function profile()
+    {
         return $this->hasOne('App\Profile');
     }
 
-    public function posts() {
+    public function posts()
+    {
         return $this->hasMany('App\Post')->orderBy('created_at', 'DESC');
     }
 
-    public function following() {
+    public function following()
+    {
         return $this->belongsToMany('App\Profile');
     }
 }

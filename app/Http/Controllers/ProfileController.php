@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Cache;
 
 class ProfileController extends Controller
 {
-    public function show(User $user){
+    public function show(User $user)
+    {
         $follows = (auth()->user()) ? auth()->user()->following->contains($user->profile->id) : false;
 
         $postsCount = Cache::remember('posts.count' . $user->id, now()->addSeconds(30), function () use ($user) {
-           return $user->posts->count();
+            return $user->posts->count();
         });
         $followersCount = Cache::remember('followers.count' . $user->id, now()->addSeconds(30), function () use ($user) {
             return $user->profile->followers->count();
@@ -25,13 +26,15 @@ class ProfileController extends Controller
         return view('profiles.show', compact('user', 'follows', 'postsCount', 'followersCount', 'followingCount'));
     }
 
-    public function edit(User $user) {
+    public function edit(User $user)
+    {
         $this->authorize('update', $user->profile);
 
         return view('profiles.edit', compact('user'));
     }
 
-    public function update(User $user) {
+    public function update(User $user)
+    {
         $this->authorize('update', $user->profile);
 
         $data = request()->validate([
@@ -41,7 +44,7 @@ class ProfileController extends Controller
             'image' => 'sometimes|image|max:3000'
         ]);
 
-        if(request('image')) {
+        if (request('image')) {
             $imagePath = request('image')->store('avatars', 'public');
 
             $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
